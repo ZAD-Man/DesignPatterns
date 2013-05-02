@@ -1,20 +1,24 @@
+package factory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.neumont.csc415.Desktop;
 
-public class Controller implements ISubject, Runnable {
+public class HardwareController implements IController, Runnable {
 
 	private Desktop desktop;
 
 	private List<IObserver> observers = new ArrayList<IObserver>();
+	
+	private int desktopKeyCode;
 
-	public Controller(Desktop desktop) {
+	public HardwareController(Desktop desktop) {
 		this.desktop = desktop;
 	}
 
 	public int getDesktopKeyCode() {
-		return desktop.getKeyCode();
+		return desktopKeyCode;
 	}
 
 	public int getDesktopCharHeight() {
@@ -50,6 +54,7 @@ public class Controller implements ISubject, Runnable {
 	public void run() {
 		while (true) {
 			if (desktop.hasKeysQueued()) {
+				desktopKeyCode = desktop.getKeyCode();
 				notifyObservers();
 				desktop.repaint();
 			}

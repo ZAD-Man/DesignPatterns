@@ -1,3 +1,4 @@
+package factory;
 public interface ISubject {
 
 	public void registerObserver(IObserver observer);
