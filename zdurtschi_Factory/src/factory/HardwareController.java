@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.neumont.csc415.Desktop;
 
-public class HardwareController implements IController, Runnable {
+public class HardwareController implements IController {
 
 	private Desktop desktop;
 

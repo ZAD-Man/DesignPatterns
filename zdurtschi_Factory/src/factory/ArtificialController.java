@@ -3,14 +3,14 @@ package factory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtificialController implements IController{
+public class ArtificialController implements IController {
 
 	private List<IObserver> observers = new ArrayList<IObserver>();
-	
+
 	private static final int CHARACTER_VALUE = 42;
-	private static final int CHARACTER_HEIGHT = 5;
-	private static final int CHARACTER_WIDTH = 5;
-	
+	private static final int CHARACTER_HEIGHT = 25;
+	private static final int CHARACTER_WIDTH = 11;
+
 	@Override
 	public void registerObserver(IObserver observer) {
 		if (!observers.contains(observer)) {
@@ -48,5 +48,16 @@ public class ArtificialController implements IController{
 		// TODO Auto-generated method stub
 		return CHARACTER_WIDTH;
 	}
-	
+
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				Thread.sleep(23);
+				notifyObservers();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

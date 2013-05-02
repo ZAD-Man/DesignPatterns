@@ -1,6 +1,6 @@
 package factory;
 
-public interface IController extends ISubject{
+public interface IController extends ISubject, Runnable{
 	public int getDesktopKeyCode();
 
 	public int getDesktopCharHeight();
