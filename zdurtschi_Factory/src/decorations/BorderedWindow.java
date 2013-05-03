@@ -3,17 +3,30 @@ package decorations;
 import edu.neumont.csc415.DesktopColor;
 import edu.neumont.csc415.DesktopGraphics;
 import edu.neumont.csc415.Point;
-import factory.Window;
+import factory.IWindow;
 
-public class BorderedWindow extends Window {
-	Window window;
+public class BorderedWindow implements IWindow {
+	IWindow window;
 	
 	private static final int BORDER_WIDTH = 4;
 	
-	public BorderedWindow(Window window){
+	private Point topLeftPoint;
+	private Point bottomRightPoint;
+	
+	@Override
+	public Point getTopLeftPoint() {
+		return topLeftPoint;
+	}
+
+	@Override
+	public Point getBottomRightPoint() {
+		return bottomRightPoint;
+	}
+	
+	public BorderedWindow(IWindow window){
 		this.window = window;
-		topLeftPoint = new Point(window.topLeftPoint.getX() - BORDER_WIDTH, window.topLeftPoint.getY() - BORDER_WIDTH);
-		bottomRightPoint = new Point(window.bottomRightPoint.getX() + BORDER_WIDTH, window.bottomRightPoint.getY() + BORDER_WIDTH);
+		topLeftPoint = new Point(window.getTopLeftPoint().getX() - BORDER_WIDTH, window.getTopLeftPoint().getY() - BORDER_WIDTH);
+		bottomRightPoint = new Point(window.getBottomRightPoint().getX() + BORDER_WIDTH, window.getBottomRightPoint().getY() + BORDER_WIDTH);
 	}
 	
 	@Override
@@ -22,6 +35,5 @@ public class BorderedWindow extends Window {
 		Point bottomRightBorderPoint = bottomRightPoint;
 		arg0.fillRectangle(topLeftBorderPoint, bottomRightBorderPoint, DesktopColor.BLUE);
 		window.paint(arg0);
-
 	}
 }

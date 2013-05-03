@@ -10,7 +10,7 @@ public class HardwareController implements IController {
 	private Desktop desktop;
 
 	private List<IObserver> observers = new ArrayList<IObserver>();
-	
+
 	private int desktopKeyCode;
 
 	public HardwareController(Desktop desktop) {

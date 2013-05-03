@@ -1,13 +1,17 @@
 package factory;
 
 import edu.neumont.csc415.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextWindow extends Window implements IObserver {
+public class TextWindow implements IWindow, IObserver {
 	private List<Character> outputChars = new ArrayList<Character>();
 
 	private HardwareController controller;
+	
+	private Point topLeftPoint;
+	private Point bottomRightPoint;
 
 	public void setTopLeftPoint(Point topLeftPoint) {
 		this.topLeftPoint = topLeftPoint;
@@ -15,6 +19,16 @@ public class TextWindow extends Window implements IObserver {
 
 	public void setBottomRightPoint(Point bottomRightPoint) {
 		this.bottomRightPoint = bottomRightPoint;
+	}
+	
+	@Override
+	public Point getTopLeftPoint() {
+		return topLeftPoint;
+	}
+
+	@Override
+	public Point getBottomRightPoint() {
+		return bottomRightPoint;
 	}
 
 	public TextWindow(HardwareController controller, Point topLeftPoint, Point bottomRightPoint) {
