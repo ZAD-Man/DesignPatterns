@@ -1,14 +1,24 @@
 package factory;
 
+import java.io.IOException;
+
 import edu.neumont.csc415.Desktop;
 import edu.neumont.csc415.Point;
 
 public class FactoryRun {
+	
 
 	public static void main(String[] args) {
 		Desktop desktop = new Desktop(1900, 1000);
-		HardwareController controller = new HardwareController(desktop);
-		
+		SettingsFileIO settingsIO = new SettingsFileIO();
+		IController controller;
+
+			if (settingsIO.CheckUseDebugController()) {
+				controller = new ArtificialController(desktop);
+			} else {
+				controller = new HardwareController(desktop);
+			}
+
 		WindowFactory windowFactory = new WindowFactory();
 
 		IWindow window = windowFactory.getTextWindow(controller, new Point(42, 42), new Point(200, 108));

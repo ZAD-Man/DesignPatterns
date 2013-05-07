@@ -49,6 +49,11 @@ public class HardwareController implements IController {
 			observer.update();
 		}
 	}
+	
+	@Override
+	public void repaintDesktop(){
+		desktop.repaint();
+	}
 
 	@Override
 	public void run() {
@@ -56,7 +61,6 @@ public class HardwareController implements IController {
 			if (desktop.hasKeysQueued()) {
 				desktopKeyCode = desktop.getKeyCode();
 				notifyObservers();
-				desktop.repaint();
 			}
 		}
 	}

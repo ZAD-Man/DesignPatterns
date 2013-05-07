@@ -8,7 +8,7 @@ import java.util.List;
 public class TextWindow implements IWindow, IObserver {
 	private List<Character> outputChars = new ArrayList<Character>();
 
-	private HardwareController controller;
+	private IController controller;
 	
 	private Point topLeftPoint;
 	private Point bottomRightPoint;
@@ -31,7 +31,7 @@ public class TextWindow implements IWindow, IObserver {
 		return bottomRightPoint;
 	}
 
-	public TextWindow(HardwareController controller, Point topLeftPoint, Point bottomRightPoint) {
+	public TextWindow(IController controller, Point topLeftPoint, Point bottomRightPoint) {
 		this.controller = controller;
 		this.controller.registerObserver(this);
 		this.topLeftPoint = topLeftPoint;
@@ -75,6 +75,6 @@ public class TextWindow implements IWindow, IObserver {
 	public void update() {
 		char newChar = (char) controller.getDesktopKeyCode();
 		addOutputChar(newChar);
-
+		controller.repaintDesktop();
 	}
 }
