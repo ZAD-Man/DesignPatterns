@@ -39,8 +39,8 @@ public class WindowModel implements ISubject {
 	}
 
 	private List<IObserver> observers = new ArrayList<IObserver>();
-	
-	public ZIterator getIterator(){
+
+	public ZIterator getIterator() {
 		return new ModelIterator();
 	}
 
@@ -99,25 +99,27 @@ public class WindowModel implements ISubject {
 			observer.update();
 		}
 	}
-	
+
 	public class ModelIterator implements ZIterator {
 
-		private List<Character> iteratorLeftStack = new ArrayList<Character>(leftStack);
-		private List<Character> iteratorRightStack = new ArrayList<Character>(rightStack);
-		
+		private int position = 0;
+
 		@Override
 		public boolean hasNext() {
-			return iteratorLeftStack.size() != 0 || iteratorRightStack.size() != 0;
+			int size = leftStack.size() + rightStack.size();
+			return position < size;
 		}
 
 		@Override
 		public char next() {
 			char nextChar;
-			if (iteratorLeftStack.size() != 0) {
-				nextChar = iteratorLeftStack.remove(0);
+			if (position < leftStack.size()) {
+				nextChar = leftStack.get(position);
 			} else {
-				nextChar = iteratorRightStack.remove(iteratorRightStack.size() - 1);
+				nextChar = rightStack.get(rightStack.size() - (position - leftStack.size()) - 1);
 			}
+
+			position++;
 			return nextChar;
 		}
 	}
