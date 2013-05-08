@@ -39,6 +39,10 @@ public class WindowModel implements ISubject {
 	}
 
 	private List<IObserver> observers = new ArrayList<IObserver>();
+	
+	public ZIterator getIterator(){
+		return new ModelIterator();
+	}
 
 	public void insertCharacter(char c) {
 		leftStack.add(c);
@@ -93,6 +97,28 @@ public class WindowModel implements ISubject {
 	public void notifyObservers() {
 		for (IObserver observer : observers) {
 			observer.update();
+		}
+	}
+	
+	public class ModelIterator implements ZIterator {
+
+		private List<Character> iteratorLeftStack = new ArrayList<Character>(leftStack);
+		private List<Character> iteratorRightStack = new ArrayList<Character>(rightStack);
+		
+		@Override
+		public boolean hasNext() {
+			return iteratorLeftStack.size() != 0 || iteratorRightStack.size() != 0;
+		}
+
+		@Override
+		public char next() {
+			char nextChar;
+			if (iteratorLeftStack.size() != 0) {
+				nextChar = iteratorLeftStack.remove(0);
+			} else {
+				nextChar = iteratorRightStack.remove(iteratorRightStack.size() - 1);
+			}
+			return nextChar;
 		}
 	}
 }

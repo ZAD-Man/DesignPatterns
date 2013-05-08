@@ -59,15 +59,11 @@ public class TextWindow implements IWindow {
 	@Override
 	public void updateText(WindowModel model) {
 		outputChars = new char[outputChars.length][outputChars[0].length];
-		Iterator<Character> leftStack = model.getLeftStack();
-		Iterator<Character> rightStack = model.getRightStack();
+		ZIterator modelIterator = model.getIterator();
 		for (int i = 0; i < outputChars.length; i++) {
 			for (int j = 0; j < outputChars[i].length; j++) {
-				if (leftStack.hasNext()) {
-					char c = leftStack.next();
-					outputChars[i][j] = c;
-				} else if (rightStack.hasNext()) {
-					char c = rightStack.next();
+				if (modelIterator.hasNext()) {
+					char c = modelIterator.next();
 					outputChars[i][j] = c;
 				}
 			}
