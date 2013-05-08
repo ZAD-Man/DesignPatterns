@@ -1,9 +1,9 @@
-package mvc;
+package iterator;
 
 import edu.neumont.csc415.Desktop;
 import edu.neumont.csc415.Point;
 
-public class MVCRun {
+public class IteratorRun {
 
 	public static void main(String[] args) {
 		Desktop desktop = new Desktop(1900, 1000);

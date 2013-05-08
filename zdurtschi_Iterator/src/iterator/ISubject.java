@@ -1,4 +1,4 @@
-package mvc;
+package iterator;
 public interface ISubject {
 
 	public void registerObserver(IObserver observer);

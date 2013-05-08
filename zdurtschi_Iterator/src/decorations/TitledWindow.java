@@ -1,7 +1,7 @@
 package decorations;
 
-import mvc.IWindow;
-import mvc.WindowModel;
+import iterator.IWindow;
+import iterator.WindowModel;
 import edu.neumont.csc415.DesktopColor;
 import edu.neumont.csc415.DesktopGraphics;
 import edu.neumont.csc415.Point;

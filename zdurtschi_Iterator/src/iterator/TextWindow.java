@@ -1,4 +1,4 @@
-package mvc;
+package iterator;
 
 import java.util.Iterator;
 

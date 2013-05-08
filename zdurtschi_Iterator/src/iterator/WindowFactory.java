@@ -1,4 +1,4 @@
-package mvc;
+package iterator;
 
 import decorations.BorderedWindow;
 import decorations.TitledWindow;

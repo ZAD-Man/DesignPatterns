@@ -1,4 +1,4 @@
-package mvc;
+package iterator;
 
 import edu.neumont.csc415.Point;
 

@@ -1,4 +1,4 @@
-package mvc;
+package iterator;
 
 public class Controller implements IObserver {
 
