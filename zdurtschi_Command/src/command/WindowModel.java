@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import commands.DeleteCommand;
+import commands.InsertCommand;
+
 public class WindowModel implements ISubject {
 	private List<Character> leftStack = new ArrayList<Character>();
 	private List<Character> rightStack = new ArrayList<Character>();
@@ -40,13 +43,59 @@ public class WindowModel implements ISubject {
 
 	private List<IObserver> observers = new ArrayList<IObserver>();
 
-	public ZIterator getIterator() {
+	public IIteratorZ getIterator() {
 		return new ModelIterator();
+	}
+	
+	public InsertCommand makeInsertCommand(char c){
+		InsertCommand insertCommand = new InsertCommand(this, leftStack.size(), c);
+		return insertCommand;
+	}
+	
+	public DeleteCommand makeBackspaceCommand(){
+		DeleteCommand backspaceCommand = null;
+		if (leftStack.size() >= 1) {
+			backspaceCommand = new DeleteCommand(this, leftStack.size() - 1);
+		}
+		return backspaceCommand;	
+		
+	}
+	
+	public DeleteCommand makeDeleteCommand(){
+		DeleteCommand deleteCommand = null;
+		if (rightStack.size() >= 1) {
+			deleteCommand = new DeleteCommand(this, leftStack.size());
+		}
+		return deleteCommand;					
 	}
 
 	public void insertCharacter(char c) {
 		leftStack.add(c);
 		notifyObservers();
+	}
+	
+	public void insertCharacterAtPosition(char c, int position){
+		if (position <= leftStack.size()) {
+			leftStack.add(position, c);
+		}
+		else{
+			int rightPosition = rightStack.size() - (position - leftStack.size()) - 1;
+			rightStack.add(rightPosition, c);
+		}
+		notifyObservers();
+	}
+	
+	public char removeCharacterAtPosition(int position){
+		char removedChar;
+		if (position <= leftStack.size() - 1) {
+			removedChar = leftStack.remove(position);
+		}
+		else{
+			int rightPosition = rightStack.size() - (position - leftStack.size()) - 1;
+			removedChar = rightStack.remove(rightPosition);
+		}
+		notifyObservers();
+		return removedChar;
 	}
 
 	public void moveCursorLeft() {
@@ -100,7 +149,7 @@ public class WindowModel implements ISubject {
 		}
 	}
 
-	public class ModelIterator implements ZIterator {
+	public class ModelIterator implements IIteratorZ {
 
 		private int position = 0;
 

@@ -1,6 +1,6 @@
 package command;
 
-public interface ZIterator {
+public interface IIteratorZ {
 	public boolean hasNext();
 	public char next();
 }

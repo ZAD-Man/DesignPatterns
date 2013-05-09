@@ -1,5 +1,8 @@
 package command;
 
+import commands.DeleteCommand;
+import commands.InsertCommand;
+
 public class Controller implements IObserver {
 
 	private static final int LEFT_ARROW_CODE = 17;
@@ -8,9 +11,13 @@ public class Controller implements IObserver {
 	private static final int DOWN_ARROW_CODE = 40;
 	private static final int BACKSPACE_CODE = 8;
 	private static final int DELETE_CODE = 127;
+	private static final int PLUS_CODE = 43;
+	private static final int MINUS_CODE = 45;
 
 	private IView view;
 	private WindowModel model;
+
+	private CommandInvoker invoker = new CommandInvoker();
 
 	public Controller(IView view, WindowModel model) {
 		this.view = view;
@@ -29,13 +36,29 @@ public class Controller implements IObserver {
 			model.moveCursorRight();
 			break;
 		case BACKSPACE_CODE:
-			model.backspace();
+			DeleteCommand backspaceCommand = model.makeBackspaceCommand();
+			if (backspaceCommand != null) {
+				invoker.setCommand(backspaceCommand);
+				invoker.invoke();
+			}
 			break;
 		case DELETE_CODE:
-			model.delete();
+			DeleteCommand deleteCommand = model.makeDeleteCommand();
+			if (deleteCommand != null) {
+				invoker.setCommand(deleteCommand);
+				invoker.invoke();
+			}
+			break;
+		case MINUS_CODE:
+			invoker.devoke();
+			break;
+		case PLUS_CODE:
+			invoker.reinvoke();
 			break;
 		default:
-			model.insertCharacter((char) keyCode);
+			InsertCommand insertCommand = model.makeInsertCommand((char) keyCode);
+			invoker.setCommand(insertCommand);
+			invoker.invoke();
 			break;
 		}
 
