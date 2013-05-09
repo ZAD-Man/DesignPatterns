@@ -116,7 +116,8 @@ public class WindowModel implements ISubject {
 			if (position < leftStack.size()) {
 				nextChar = leftStack.get(position);
 			} else {
-				nextChar = rightStack.get(rightStack.size() - (position - leftStack.size()) - 1);
+				int rightPosition = rightStack.size() - (position - leftStack.size()) - 1;
+				nextChar = rightStack.get(rightPosition);
 			}
 
 			position++;
